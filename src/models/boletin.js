@@ -7,13 +7,13 @@ class boletin {
     update_at = new Date();
     published_at = new Date();
 
-    constructor(id,title, description, create_at, update_at, published) {
+    constructor(id,title, description, create_at, update_at, published_at) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.create_at = create_at;
         this.update_at = update_at;
-        this.published_at = this.published_at;
+        this.published_at = published_at;
 
     }
 
@@ -35,7 +35,7 @@ getCreate_at() {
 }
 
 getUpdate_at() {
-    return this.create_at;
+    return this.update_at;
 }
 
 getPublished_at() {
@@ -63,10 +63,22 @@ setUpdateAt(update_at) {
     this.update_at = update_at
 }
 
-setPublisherAt(publisher_at) {
-    this.publisher_at = publisher_at
+setPublishedAt(published_at) {
+    this.published_at = published_at
+}
+
+getValues() {
+    return{
+        id: this.id,
+        title: this.title,
+        description: this.description,
+        create_at: this.create_at,
+        update_at: this.update_at,
+        published_at: this.published_at
+    }
 }
 
 }
+module.exports = boletin
 
 

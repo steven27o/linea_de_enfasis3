@@ -17,6 +17,8 @@ app.get("/",(request,response)=>{
     response.send("Backend running...")
 })
 
+app.use('/api/boletines', require('./routes/boletin'))
+
 const PORT = process.env.APP_PORT
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT} `)
