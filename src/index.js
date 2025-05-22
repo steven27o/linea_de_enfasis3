@@ -1,5 +1,5 @@
 const express = require("express");
-const helmet = require("helmet");
+const helmet = require("helmet"); 
 const cors = require("cors");
 const morgan = require("morgan");
 
@@ -14,12 +14,14 @@ app.use(morgan("dev"))
 app.use(express.json())
 
 app.get("/",(request, response)=>{
-    response.send("Backend runnig...")
+    response.send("backend running...")
 })
+
+app.use('/api/boletines', require('./routes/boletin') )
 
 const PORT = process.env.APP_PORT
-app.listen(3000,()=>{
-    console.log( `serve is running on port ${PORT}`)
-})
 
+app.listen(PORT,()=>{
+    console.log(`Server is running on port ${PORT} `)
+})
 
