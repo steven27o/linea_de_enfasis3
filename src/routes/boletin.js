@@ -43,7 +43,7 @@ router.put("/:id", boletinValidator, async (request, response) => {
   const updatedBoletin = await serviceBoletin.update(id, title, description, published_at);
   response.json(updatedBoletin.getValues());
 });
-
+//////
 router.delete("/:id", boletinValidator, async (request, response) => {
   const id = parseInt(request.params.id);
   const result = await serviceBoletin.delete(id);
