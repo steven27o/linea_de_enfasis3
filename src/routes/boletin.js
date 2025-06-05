@@ -6,14 +6,23 @@ const router = Router();
 const serviceBoletin = new BoletinService();
 
 router.get("/", async (request, response) => {
-  const boletines = await serviceBoletin.getAll();
-  response.json(boletines.map((b) => b.getValues()));
+  try {
+    const boletines = await serviceBoletin.getAll();
+    response.json(boletines);
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
 });
 
 router.get("/:id", boletinValidator, async (request, response) => {
-  const id = request.params.id;
-  const boletin = await serviceBoletin.getById(id);
-  response.json(boletin.getValues());
+  try {
+    const id = request.params.id;
+    const boletin = await serviceBoletin.getById(id);
+    if (!boletin) return response.status(404).json({ error: "Boletín no encontrado" });
+    response.json(boletin);
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
 });
 
 router.post("/", async (request, response) => {
@@ -31,23 +40,33 @@ router.post("/", async (request, response) => {
       categoria_id
     );
 
-    response.status(201).json(boletin.getValues());
+    response.status(201).json(boletin);
   } catch (error) {
     response.status(500).json({ error: error.message });
   }
 });
 
 router.put("/:id", boletinValidator, async (request, response) => {
-  const id = request.params.id;
-  const { title, description, published_at } = request.body;
-  const updatedBoletin = await serviceBoletin.update(id, title, description, published_at);
-  response.json(updatedBoletin.getValues());
+  try {
+    const id = request.params.id;
+    const { title, description, published_at } = request.body;
+    const updatedBoletin = await serviceBoletin.update(id, title, description, published_at);
+    if (!updatedBoletin) return response.status(404).json({ error: "Boletín no encontrado" });
+    response.json(updatedBoletin);
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
 });
-//////
+
 router.delete("/:id", boletinValidator, async (request, response) => {
-  const id = parseInt(request.params.id);
-  const result = await serviceBoletin.delete(id);
-  response.json(result);
+  try {
+    const id = parseInt(request.params.id);
+    const result = await serviceBoletin.delete(id);
+    if (!result) return response.status(404).json({ error: "Boletín no encontrado" });
+    response.json(result);
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
 });
 
 module.exports = router;

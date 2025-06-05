@@ -17,7 +17,7 @@ app.get("/", (request, response) => {
     response.send("Backend running...");
 });
 
-app.use("/api/boletines", require("./routes/boletin"));
+app.use("/api/boletin", require("./routes/boletin"));
 app.use("/api/categoria", require("./routes/categoria"));  // <--- Agregado
 
 const PORT = process.env.APP_PORT;
